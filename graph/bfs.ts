@@ -6,8 +6,10 @@
  * Space complexity: O(V) for the queue
  */
 
+type AdjacencyList = Record<string, string[]>;
+
 export function bfs(
-  graph: Record<string, string[]>,
+  graph: AdjacencyList,
   start: string,
   target?: string
 ): string[] | void {
