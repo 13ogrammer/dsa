@@ -1,16 +1,12 @@
-class BTNode {
-  constructor(
-    public val: number,
-    public left: BTNode | null = null,
-    public right: BTNode | null = null
-  ) {}
-}
+import { BTNode, btreeBuilder } from "../graph/tree.helpers";
 
-function levelOrderTraversal(root: BTNode | null): number[][] {
+type NumNode = BTNode<number>;
+
+function levelOrderTraversal(root: NumNode | null): number[][] {
   if (!root) return [];
 
   const result: number[][] = [];
-  const queue: BTNode[] = [root];
+  const queue: NumNode[] = [root];
 
   while (queue.length > 0) {
     const levelSize = queue.length; // Capture the current level size
@@ -32,11 +28,11 @@ function levelOrderTraversal(root: BTNode | null): number[][] {
 }
 
 // Alternative implementation with O(1) dequeue using indices (more efficient)
-function levelOrderTraversalOptimized(root: BTNode | null): number[][] {
+function levelOrderTraversalOptimized(root: NumNode | null): number[][] {
   if (!root) return [];
 
   const result: number[][] = [];
-  const queue: BTNode[] = [root];
+  const queue: NumNode[] = [root];
   let front = 0; // Index of the front element
 
   while (front < queue.length) {
@@ -59,12 +55,8 @@ function levelOrderTraversalOptimized(root: BTNode | null): number[][] {
 }
 
 // Example usage:
-const root = new BTNode(1);
-root.left = new BTNode(2);
-root.right = new BTNode(3);
-root.left.left = new BTNode(4);
-root.left.right = new BTNode(5);
-root.right.right = new BTNode(6);
+const tree = [1, 2, 4, null, null, 5, null, null, 3, null, 6, null, null];
+const root = btreeBuilder(tree);
 
 console.log(levelOrderTraversal(root)); // [[1], [2, 3], [4, 5, 6]]
 console.log(levelOrderTraversalOptimized(root)); // [[1], [2, 3], [4, 5, 6]]
